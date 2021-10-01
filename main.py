@@ -16,6 +16,8 @@ async def on_message(message):
 
     if 'https://www.amazon' in message.content:
         url = shortenURL(message.content)
+        await message.channel.send("送信者: "+message.author.name)
         await message.channel.send(url)
+        await message.delete()
 
 client.run(BOT_TOKEN)
