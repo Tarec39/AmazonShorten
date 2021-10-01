@@ -1,7 +1,9 @@
 import discord
 import setting
+import requests
 
-API_TOKEN = setting.API_TOKEN
+BOT_TOKEN = setting.BOT_TOKEN
+BITLY_TOKEN = setting.BITLY_TOKEN
 
 client = discord.Client()
 
@@ -15,5 +17,19 @@ async def on_message(message):
         return
 
     if 'https://www.amazon' in message.content:
-        await message.channel.send(" Detected Amazon's Link ")
-client.run(API_TOKEN)
+        url = shortenURL(message.content)
+        await message.channel.send(url)
+
+
+def shortenURL(longUrl):
+    url = "https://api-ssl.bitly.com/v3/shorten"
+    access_token = BITLY_TOKEN
+    query = {
+        'access_token' : access_token,
+        'longUrl': longUrl
+    }
+
+    request = requests.get(url, params=query).json()['data']['url']
+    return request
+
+client.run(BOT_TOKEN)
