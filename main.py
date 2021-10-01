@@ -1,10 +1,10 @@
 import discord
-import setting
-
-API_TOKEN = setting.API_TOKEN
+import settings
+import shorten
+BOT_TOKEN = settings.BOT_TOKEN
 
 client = discord.Client()
-
+shortenURL = shorten.shortenURL
 @client.event
 async def on_ready():
     print('ログインしました')
@@ -15,5 +15,7 @@ async def on_message(message):
         return
 
     if 'https://www.amazon' in message.content:
-        await message.channel.send(" Detected Amazon's Link ")
-client.run(API_TOKEN)
+        url = shortenURL(message.content)
+        await message.channel.send(url)
+
+client.run(BOT_TOKEN)

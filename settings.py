@@ -6,4 +6,5 @@ from dotenv import load_dotenv
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
-API_TOKEN= os.environ.get("API_TOKEN")
+BOT_TOKEN= os.environ.get("BOT_TOKEN")
+BITLY_TOKEN = os.environ.get("BITLY_TOKEN")
